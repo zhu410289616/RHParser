@@ -6,11 +6,9 @@
 //  Copyright © 2017年 zhuruhong. All rights reserved.
 //
 
-//svn checkout https://svn.code.sf.net/p/htmlparser/code/trunk htmlparser-code
-
 #import <Foundation/Foundation.h>
 
-#define RHParserDebug
+//#define RHParserDebug
 
 #ifdef RHParserDebug
 #define RHParserLog(format, ...) NSLog(format, ## __VA_ARGS__)
@@ -43,5 +41,11 @@ typedef NSAttributedString *(^RHNodeBlock)(RHNode *node, NSDictionary *defaultSt
 
 - (void)addNodeBlock:(RHNodeBlock)inNodeBlock forTag:(NSString *)inTag;
 - (void)removeNodeBlockForTag:(NSString *)inTag;
+
+@end
+
+@interface RHParser (Error)
+
+- (NSError *)errorWithCode:(NSInteger)code UserInfo:(NSDictionary *)userInfo;
 
 @end

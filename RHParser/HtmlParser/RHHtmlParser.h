@@ -8,6 +8,8 @@
 
 #import "RHParser.h"
 
+extern NSString * const RHHtmlParserDomain;
+
 /**
  * 解析html字符串
  * 1-Build Phases中，在Link Binary With Libraries中加入libxml库

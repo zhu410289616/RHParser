@@ -26,6 +26,8 @@
 		839AE92B1EAF3EF80097CC85 /* item_72_s_122010.png in Resources */ = {isa = PBXBuildFile; fileRef = 839AE9261EAF3EF80097CC85 /* item_72_s_122010.png */; };
 		839AE92C1EAF3EF80097CC85 /* UILabel+RHExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 839AE9281EAF3EF80097CC85 /* UILabel+RHExtensions.m */; };
 		839AE92F1EAF564E0097CC85 /* RHHtmlNodeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 839AE92E1EAF564E0097CC85 /* RHHtmlNodeFilter.m */; };
+		83D8E4251EAFA5A200A0F7A5 /* XmlTest.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83D8E4241EAFA5A200A0F7A5 /* XmlTest.xml */; };
+		83D8E4281EAFACB200A0F7A5 /* RHXmlNodeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D8E4271EAFACB200A0F7A5 /* RHXmlNodeFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,9 @@
 		839AE9281EAF3EF80097CC85 /* UILabel+RHExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+RHExtensions.m"; sourceTree = "<group>"; };
 		839AE92D1EAF564E0097CC85 /* RHHtmlNodeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHtmlNodeFilter.h; sourceTree = "<group>"; };
 		839AE92E1EAF564E0097CC85 /* RHHtmlNodeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHHtmlNodeFilter.m; sourceTree = "<group>"; };
+		83D8E4241EAFA5A200A0F7A5 /* XmlTest.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = XmlTest.xml; sourceTree = "<group>"; };
+		83D8E4261EAFACB200A0F7A5 /* RHXmlNodeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHXmlNodeFilter.h; sourceTree = "<group>"; };
+		83D8E4271EAFACB200A0F7A5 /* RHXmlNodeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHXmlNodeFilter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +115,7 @@
 				839AE8DD1EAEFB2A0097CC85 /* LaunchScreen.storyboard */,
 				839AE8E01EAEFB2A0097CC85 /* Info.plist */,
 				839AE8CF1EAEFB2A0097CC85 /* Supporting Files */,
+				83D8E4241EAFA5A200A0F7A5 /* XmlTest.xml */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -166,6 +172,8 @@
 			children = (
 				839AE9181EAF38F30097CC85 /* RHXmlParser.h */,
 				839AE9191EAF38F30097CC85 /* RHXmlParser.m */,
+				83D8E4261EAFACB200A0F7A5 /* RHXmlNodeFilter.h */,
+				83D8E4271EAFACB200A0F7A5 /* RHXmlNodeFilter.m */,
 			);
 			path = XmlParser;
 			sourceTree = "<group>";
@@ -239,6 +247,7 @@
 			files = (
 				839AE9291EAF3EF80097CC85 /* item_9_s_122010.png in Resources */,
 				839AE92B1EAF3EF80097CC85 /* item_72_s_122010.png in Resources */,
+				83D8E4251EAFA5A200A0F7A5 /* XmlTest.xml in Resources */,
 				839AE8DF1EAEFB2A0097CC85 /* LaunchScreen.storyboard in Resources */,
 				839AE8DC1EAEFB2A0097CC85 /* Assets.xcassets in Resources */,
 				839AE92A1EAF3EF80097CC85 /* item_67_s_122010.png in Resources */,
@@ -259,6 +268,7 @@
 				839AE91A1EAF38F30097CC85 /* RHHtmlParser.m in Sources */,
 				839AE91F1EAF38F30097CC85 /* RHColorConverter.m in Sources */,
 				839AE91D1EAF38F30097CC85 /* RHNodeList.m in Sources */,
+				83D8E4281EAFACB200A0F7A5 /* RHXmlNodeFilter.m in Sources */,
 				839AE8D41EAEFB2A0097CC85 /* AppDelegate.m in Sources */,
 				839AE91E1EAF38F30097CC85 /* RHParser.m in Sources */,
 				839AE92C1EAF3EF80097CC85 /* UILabel+RHExtensions.m in Sources */,

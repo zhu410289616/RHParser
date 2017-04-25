@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config>
+    <font color='#3454ef' size='19'>
+        font: color and size
+    </font>
+    <strong>strong</strong>
+    <img src='img url'>
+    <a href="a href">content for a</a>
+</Config>

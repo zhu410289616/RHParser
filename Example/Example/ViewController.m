@@ -10,6 +10,7 @@
 #import "UILabel+RHExtensions.h"
 
 #import "RHHtmlParser.h"
+#import "RHXmlParser.h"
 
 @interface ViewController ()
 
@@ -28,6 +29,13 @@
     
     RHHtmlParser *htmlParser = [[RHHtmlParser alloc] init];
     NSAttributedString *attributedString = [htmlParser parseString:htmlString filter:nil error:nil];
+    
+    NSString *xmlPath = [[NSBundle mainBundle] pathForResource:@"XmlTest" ofType:@"xml"];
+    NSData *xmlData = [NSData dataWithContentsOfFile:xmlPath];
+    NSString *xmlString = [NSString stringWithUTF8String:(char *)xmlData.bytes];
+    RHXmlParser *xmlParser = [[RHXmlParser alloc] init];
+    NSError *error = nil;
+    [xmlParser parseString:xmlString filter:nil error:&error];
     
     _htmlTextView = [[UITextView alloc] init];
     _htmlTextView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 200);

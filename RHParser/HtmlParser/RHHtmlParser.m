@@ -13,6 +13,8 @@
 #import "RHNode.h"
 #import "RHNodeFilter.h"
 
+NSString * const RHHtmlParserDomain = @"RHHtmlParserDomain";
+
 @implementation RHHtmlParser
 
 - (instancetype)init
@@ -142,14 +144,15 @@
     [self addNodeBlock:theNodeBlock forTag:@"font"];
 }
 
-- (xmlNodePtr)_rootNodeWithString:(NSString *)inString error:(NSError **)error
+- (xmlNodePtr)_rootNodeWithData:(NSData *)inData error:(NSError **)error
 {
-    if (inString.length == 0) {
-        *error = [NSError errorWithDomain:RHParserDomain code:1 userInfo:nil];
+    if (inData.length == 0) {
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:@"inData is nil" };
+        *error = [self errorWithCode:2 UserInfo:userInfo];
         return NULL;
     }
     
-    NSData *theData = [inString dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *theData = inData;
     
     CFStringEncoding cfenc = CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding);
     CFStringRef cfencstr = CFStringConvertEncodingToIANACharSetName(cfenc);
@@ -247,11 +250,12 @@
 {
     if (inString.length == 0) {
         NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:@"inString is nil" };
-        *outError = [NSError errorWithDomain:@"RHParserErrorDomain" code:1 userInfo:userInfo];
+        *outError = [self errorWithCode:1 UserInfo:userInfo];
         return nil;
     }
     
-    xmlNodePtr rootXmlNode = [self _rootNodeWithString:inString error:outError];
+    NSData *theData = [inString dataUsingEncoding:NSUTF8StringEncoding];
+    xmlNodePtr rootXmlNode = [self _rootNodeWithData:theData error:outError];
     RHNodeList *theNodeList = [[RHNodeList alloc] init];
     [self _readWithNode:rootXmlNode filter:inFilter nodeList:theNodeList];
     return theNodeList;
@@ -260,9 +264,6 @@
 - (NSAttributedString *)parseString:(NSString *)inString filter:(RHNodeFilter *)inFilter error:(NSError *__autoreleasing *)outError
 {
     RHNodeList *theNodeList = [self nodeListWithString:inString filter:inFilter error:outError];
-    if (outError) {
-        return nil;
-    }
     
     NSMutableAttributedString *theAttrString = [[NSMutableAttributedString alloc] init];
     for (RHNode *node in theNodeList.nodes) {

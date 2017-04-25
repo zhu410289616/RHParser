@@ -8,6 +8,8 @@
 
 #import "RHParser.h"
 
+extern NSString * const RHXmlParserDomain;
+
 @interface RHXmlParser : RHParser
 
 @end

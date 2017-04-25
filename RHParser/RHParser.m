@@ -52,3 +52,12 @@ NSString * const RHParserDomain = @"RHParserDomain";
 }
 
 @end
+
+@implementation RHParser (Error)
+
+- (NSError *)errorWithCode:(NSInteger)code UserInfo:(NSDictionary *)userInfo
+{
+    return [NSError errorWithDomain:RHParserDomain code:code userInfo:userInfo];
+}
+
+@end
