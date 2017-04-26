@@ -14,7 +14,7 @@
 - (void)setHtmlText:(NSString *)inHtmlText
 {
     RHHtmlParser *htmlParser = [[RHHtmlParser alloc] init];
-    NSAttributedString *attributedString = [htmlParser parseString:inHtmlText filter:nil error:nil];
+    NSAttributedString *attributedString = [htmlParser parseString:inHtmlText filter:nil];
     if (attributedString) {
         self.attributedText = attributedString;
     } else {

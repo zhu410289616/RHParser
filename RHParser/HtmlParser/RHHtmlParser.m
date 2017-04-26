@@ -13,8 +13,6 @@
 #import "RHNode.h"
 #import "RHNodeFilter.h"
 
-NSString * const RHHtmlParserDomain = @"RHHtmlParserDomain";
-
 @implementation RHHtmlParser
 
 - (instancetype)init
@@ -116,7 +114,7 @@ NSString * const RHHtmlParserDomain = @"RHHtmlParserDomain";
         
         NSMutableDictionary *theStyle = [NSMutableDictionary dictionary];
         if (defaultStyles.count > 0) {
-            [theStyle addEntriesFromDictionary:theStyle];
+            [theStyle addEntriesFromDictionary:defaultStyles];
         }
         
         NSString *theColorString = node.attributes[@"color"];
@@ -144,11 +142,9 @@ NSString * const RHHtmlParserDomain = @"RHHtmlParserDomain";
     [self addNodeBlock:theNodeBlock forTag:@"font"];
 }
 
-- (xmlNodePtr)_rootNodeWithData:(NSData *)inData error:(NSError **)error
+- (xmlNodePtr)_rootNodeWithData:(NSData *)inData
 {
     if (inData.length == 0) {
-        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:@"inData is nil" };
-        *error = [self errorWithCode:2 UserInfo:userInfo];
         return NULL;
     }
     
@@ -246,24 +242,22 @@ NSString * const RHHtmlParserDomain = @"RHHtmlParserDomain";
     }
 }
 
-- (RHNodeList *)nodeListWithString:(NSString *)inString filter:(RHNodeFilter *)inFilter error:(NSError *__autoreleasing *)outError
+- (RHNodeList *)nodeListWithString:(NSString *)inString filter:(RHNodeFilter *)inFilter
 {
     if (inString.length == 0) {
-        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:@"inString is nil" };
-        *outError = [self errorWithCode:1 UserInfo:userInfo];
         return nil;
     }
     
     NSData *theData = [inString dataUsingEncoding:NSUTF8StringEncoding];
-    xmlNodePtr rootXmlNode = [self _rootNodeWithData:theData error:outError];
+    xmlNodePtr rootXmlNode = [self _rootNodeWithData:theData];
     RHNodeList *theNodeList = [[RHNodeList alloc] init];
     [self _readWithNode:rootXmlNode filter:inFilter nodeList:theNodeList];
     return theNodeList;
 }
 
-- (NSAttributedString *)parseString:(NSString *)inString filter:(RHNodeFilter *)inFilter error:(NSError *__autoreleasing *)outError
+- (NSAttributedString *)parseString:(NSString *)inString filter:(RHNodeFilter *)inFilter
 {
-    RHNodeList *theNodeList = [self nodeListWithString:inString filter:inFilter error:outError];
+    RHNodeList *theNodeList = [self nodeListWithString:inString filter:inFilter];
     
     NSMutableAttributedString *theAttrString = [[NSMutableAttributedString alloc] init];
     for (RHNode *node in theNodeList.nodes) {

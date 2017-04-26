@@ -26,8 +26,8 @@ typedef NSAttributedString *(^RHNodeBlock)(RHNode *node, NSDictionary *defaultSt
 
 @protocol RHParser <NSObject>
 
-- (RHNodeList *)nodeListWithString:(NSString *)inString filter:(RHNodeFilter *)inFilter error:(NSError **)outError;
-- (NSAttributedString *)parseString:(NSString *)inString filter:(RHNodeFilter *)inFilter error:(NSError **)outError;
+- (RHNodeList *)nodeListWithString:(NSString *)inString filter:(RHNodeFilter *)inFilter;
+- (NSAttributedString *)parseString:(NSString *)inString filter:(RHNodeFilter *)inFilter;
 
 @end
 

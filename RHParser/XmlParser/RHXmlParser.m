@@ -10,8 +10,7 @@
 #import "RHNodeList.h"
 #import "RHXmlNodeFilter.h"
 #import "RHNode.h"
-
-NSString * const RHXmlParserDomain = @"RHXmlParserDomain";
+#import "RHColorConverter.h"
 
 @interface RHXmlParser () <NSXMLParserDelegate>
 
@@ -28,47 +27,161 @@ NSString * const RHXmlParserDomain = @"RHXmlParserDomain";
     if (self = [super init]) {
         _nodeList = [[RHNodeList alloc] init];
         _filter = [[RHXmlNodeFilter alloc] init];
+        [self setStyles];
+        [self setNodeBlocks];
     }
     return self;
+}
+
+- (void)setStyles
+{
+    NSDictionary *theStyleAttribute = nil;
+    
+    //a
+    theStyleAttribute = @{ NSForegroundColorAttributeName: [UIColor blueColor],
+                           NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+                           NSUnderlineColorAttributeName: [UIColor redColor] };
+    [self addStyle:theStyleAttribute forTag:@"a"];
+    
+    //strong 加粗
+    theStyleAttribute = @{ NSExpansionAttributeName: @(0.9) };
+    [self addStyle:theStyleAttribute forTag:@"strong"];
+    
+    //mark
+    theStyleAttribute = @{ NSForegroundColorAttributeName: [UIColor yellowColor] };
+    [self addStyle:theStyleAttribute forTag:@"mark"];
+    
+    //i 斜体
+    theStyleAttribute = @{ NSBackgroundColorAttributeName: [UIColor yellowColor],
+                           NSForegroundColorAttributeName: [UIColor redColor],
+                           NSObliquenessAttributeName: @(2) };
+    [self addStyle:theStyleAttribute forTag:@"i"];
+    
+    //strike 删除线
+    theStyleAttribute = @{ NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle),
+                           NSStrikethroughColorAttributeName: [UIColor greenColor] };
+    [self addStyle:theStyleAttribute forTag:@"strike"];
+    
+    //stroke 描边
+    theStyleAttribute = @{ NSStrokeColorAttributeName: [UIColor redColor],
+                           NSStrokeWidthAttributeName: @(2) };
+    [self addStyle:theStyleAttribute forTag:@"stroke"];
+}
+
+- (void)setNodeBlocks
+{
+    RHNodeBlock theNodeBlock = nil;
+    __weak typeof(self) weakSelf = self;
+    
+    //img
+    theNodeBlock = ^(RHNode *node, NSDictionary *defaultStyles) {
+        NSString *theSrcString = node.attributes[@"src"];
+        UIImage *theImage = (theSrcString.length > 0) ? [UIImage imageNamed:theSrcString] : nil;
+        
+        NSString *theWidthString = node.attributes[@"width"];
+        NSString *theHeightString = node.attributes[@"height"];
+        CGRect bounds = CGRectZero;
+        if (theWidthString.length > 0 && theHeightString.length > 0) {
+            bounds.size.width = [theWidthString floatValue];
+            bounds.size.height = [theHeightString floatValue];
+        }
+        
+        NSTextAttachment *theTextAttachment = [[NSTextAttachment alloc] init];
+        theTextAttachment.image = theImage;
+        if (bounds.size.width > 2 && bounds.size.height > 2) {
+            theTextAttachment.bounds = bounds;
+        }
+        NSAttributedString *theAttributedString = [NSAttributedString attributedStringWithAttachment:theTextAttachment];
+        
+        return theAttributedString;
+    };
+    [self addNodeBlock:theNodeBlock forTag:@"img"];
+    
+    //a
+    theNodeBlock = ^(RHNode *node, NSDictionary *defaultStyles) {
+        NSString *theContent = node.content ?: @"???";
+        
+        NSMutableDictionary *theStyle = [NSMutableDictionary dictionary];
+        if (defaultStyles.count > 0) {
+            [theStyle addEntriesFromDictionary:defaultStyles];
+        }
+        NSString *theHrefString = node.attributes[@"href"];
+        if (theHrefString.length > 0) {
+            theStyle[NSLinkAttributeName] = [NSURL URLWithString:theHrefString];
+        }
+        NSAttributedString *theAttributedString = [[NSAttributedString alloc] initWithString:theContent attributes:theStyle];
+        
+        return theAttributedString;
+    };
+    [self addNodeBlock:theNodeBlock forTag:@"a"];
+    
+    //font
+    theNodeBlock = ^(RHNode *node, NSDictionary *defaultStyles) {
+        NSString *theContent = node.content ?: @"";
+        
+        NSMutableDictionary *theStyle = [NSMutableDictionary dictionary];
+        if (defaultStyles.count > 0) {
+            [theStyle addEntriesFromDictionary:theStyle];
+        }
+        
+        NSString *theColorString = node.attributes[@"color"];
+        if (theColorString.length > 0) {
+            UIColor *theColor = [UIColor colorWithHexString:theColorString];
+            theStyle[NSForegroundColorAttributeName] = theColor;
+        }
+        
+        NSString *theBgColorString = node.attributes[@"bgcolor"];
+        if (theBgColorString.length > 0) {
+            UIColor *theBgColor = [UIColor colorWithHexString:theBgColorString];
+            theStyle[NSBackgroundColorAttributeName] = theBgColor;
+        }
+        
+        NSString *theSizeString = node.attributes[@"size"];
+        if (theSizeString.length > 0) {
+            NSDictionary *styleDic = weakSelf.stylesMap[@"font"];
+            UIFont *styleFont = styleDic[NSFontAttributeName];
+            theStyle[NSFontAttributeName] = [UIFont fontWithName:styleFont.fontName size:[theSizeString floatValue]];
+        }
+        NSAttributedString *theAttributedString = [[NSAttributedString alloc] initWithString:theContent attributes:theStyle];
+        
+        return theAttributedString;
+    };
+    [self addNodeBlock:theNodeBlock forTag:@"font"];
 }
 
 #pragma mark - NSXMLParserDelegate
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary<NSString *,NSString *> *)attributeDict
 {
-    NSLog(@"start elementName: %@, namespaceURI: %@, qName: %@, attributeDict: %@", elementName, namespaceURI, qName, attributeDict);
+    RHParserLog(@"start elementName: %@, namespaceURI: %@, qName: %@, attributeDict: %@", elementName, namespaceURI, qName, attributeDict);
+    
     _currentNode = [[RHNode alloc] init];
     _currentNode.name = elementName;
     [_currentNode addAttributes:@{@"tag":elementName}];
+    [_currentNode addAttributes:attributeDict];
     
-    if ([_filter filter:_currentNode]) {
-        _currentNode = nil;
+    if (![_filter filter:_currentNode]) {
+        [_nodeList addNode:_currentNode];
     }
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    NSLog(@"end elementName: %@, namespaceURI: %@, qName: %@", elementName, namespaceURI, qName);
-    if (_currentNode) {
-        [_nodeList addNode:_currentNode];
-    }
+    RHParserLog(@"end elementName: %@, namespaceURI: %@, qName: %@", elementName, namespaceURI, qName);
     _currentNode = nil;
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-    NSLog(@"string: %@", string);
+    RHParserLog(@"string: %@", string);
     _currentNode.content = string;
 }
 
 #pragma mark - public
 
-- (RHNodeList *)nodeListWithString:(NSString *)inString filter:(RHNodeFilter *)inFilter error:(NSError **)outError
+- (RHNodeList *)nodeListWithString:(NSString *)inString filter:(RHNodeFilter *)inFilter
 {
-    NSLog(@"inString: %@", inString);
     if (inString.length == 0) {
-        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:@"inString is nil" };
-        *outError = [self errorWithCode:1 UserInfo:userInfo];
         return nil;
     }
     
@@ -79,20 +192,13 @@ NSString * const RHXmlParserDomain = @"RHXmlParserDomain";
     xmlParser.shouldReportNamespacePrefixes = NO;
     xmlParser.shouldResolveExternalEntities = NO;
     [xmlParser parse];
-//    if (xmlParser.parserError) {
-//        *outError = *outError ? xmlParser.parserError : nil;
-//        return nil;
-//    }
     
     return _nodeList;
 }
 
-- (NSAttributedString *)parseString:(NSString *)inString filter:(RHNodeFilter *)inFilter error:(NSError **)outError
+- (NSAttributedString *)parseString:(NSString *)inString filter:(RHNodeFilter *)inFilter
 {
-    RHNodeList *theNodeList = [self nodeListWithString:inString filter:inFilter error:outError];
-    if (*outError) {
-        return nil;
-    }
+    RHNodeList *theNodeList = [self nodeListWithString:inString filter:inFilter];
     
     NSMutableAttributedString *theAttrString = [[NSMutableAttributedString alloc] init];
     for (RHNode *node in theNodeList.nodes) {

@@ -41,12 +41,12 @@ NSString * const RHParserDomain = @"RHParserDomain";
     [self.nodeBlocksMap removeObjectForKey:inTag];
 }
 
-- (RHNodeList *)nodeListWithString:(NSString *)inString filter:(RHNodeFilter *)inFilter error:(NSError *__autoreleasing *)outError
+- (RHNodeList *)nodeListWithString:(NSString *)inString filter:(RHNodeFilter *)inFilter
 {
     return nil;
 }
 
-- (NSAttributedString *)parseString:(NSString *)inString filter:(RHNodeFilter *)inFilter error:(NSError *__autoreleasing *)outError
+- (NSAttributedString *)parseString:(NSString *)inString filter:(RHNodeFilter *)inFilter
 {
     return nil;
 }

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Config>
-    <font color='#3454ef' size='19'>
-        font: color and size
-    </font>
+    <font color='#3454ef' size='23'>font: color and size<font color='#3ee4ef' size='20'>sub font: color and size</font></font>
     <strong>strong</strong>
-    <img src='img url'>
+    <img src='item_67_s_122010.png' width='60' height='65'>
     <a href="a href">content for a</a>
 </Config>
