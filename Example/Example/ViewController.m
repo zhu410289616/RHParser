@@ -46,6 +46,7 @@
     _htmlLabel.attributedText = attributedString;
 //    [_htmlLabel setHtmlText:htmlString];
     [self.view addSubview:_htmlLabel];
+    _htmlLabel.userInteractionEnabled = YES;
     
     //
     NSString *xmlPath = [[NSBundle mainBundle] pathForResource:@"XmlTest" ofType:@"xml"];
@@ -61,7 +62,7 @@
     _xmlLabel.numberOfLines = 0;
     _xmlLabel.attributedText = attributedString;
     [self.view addSubview:_xmlLabel];
-    
+    _xmlLabel.userInteractionEnabled = YES;
 }
 
 

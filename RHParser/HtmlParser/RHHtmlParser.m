@@ -12,12 +12,20 @@
 #import "RHNodeList.h"
 #import "RHNode.h"
 #import "RHNodeFilter.h"
+#import "RHNodeLink.h"
+
+@interface RHHtmlParser ()
+
+@property (nonatomic, strong) NSMutableArray *links;
+
+@end
 
 @implementation RHHtmlParser
 
 - (instancetype)init
 {
     if (self = [super init]) {
+        _links = [NSMutableArray array];
         //1 - style attribute
         [self setStyles];
         //2 - node block
@@ -96,7 +104,7 @@
         
         NSMutableDictionary *theStyle = [NSMutableDictionary dictionary];
         if (defaultStyles.count > 0) {
-            [theStyle addEntriesFromDictionary:theStyle];
+            [theStyle addEntriesFromDictionary:defaultStyles];
         }
         NSString *theHrefString = node.attributes[@"href"];
         if (theHrefString.length > 0) {
@@ -140,6 +148,49 @@
         return theAttributedString;
     };
     [self addNodeBlock:theNodeBlock forTag:@"font"];
+}
+
+- (NSArray *)nodeLinks
+{
+    return self.links;
+}
+
+- (void)addLink:(RHNodeLink *)link
+{
+    if (nil == link) {
+        return;
+    }
+    [self.links addObject:link];
+}
+
+- (void)addLinks:(NSArray *)links
+{
+    [self.links addObjectsFromArray:links];
+}
+
+- (NSArray *)addLinksWithTextCheckingResults:(NSArray *)results attributes:(NSDictionary *)attributes
+{
+    NSMutableArray *links = [NSMutableArray array];
+    
+    for (NSTextCheckingResult *result in results) {
+        RHNodeLink *link = [[RHNodeLink alloc] initWithAttributes:attributes activeAttributes:nil inactiveAttributes:nil textCheckingResult:result];
+        [links addObject:link];
+    }
+    [self addLinks:links];
+    return links;
+}
+
+- (RHNodeLink *)addLinkWithTextCheckingResult:(NSTextCheckingResult *)result
+                                   attributes:(NSDictionary *)attributes
+{
+    NSArray *links = [self addLinksWithTextCheckingResults:@[result] attributes:attributes];
+    return links.firstObject;
+}
+
+- (RHNodeLink *)addLinkToURL:(NSURL *)url range:(NSRange)range attributes:(NSDictionary *)attributes
+{
+    NSTextCheckingResult *result = [NSTextCheckingResult linkCheckingResultWithRange:range URL:url];
+    return [self addLinkWithTextCheckingResult:result attributes:attributes];
 }
 
 - (xmlNodePtr)_rootNodeWithData:(NSData *)inData
@@ -283,6 +334,15 @@
             [theAttrString appendAttributedString:nodeAttrStr];
         }
     }
+    
+    [theAttrString enumerateAttribute:NSLinkAttributeName inRange:NSMakeRange(0, theAttrString.length) options:0 usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+        if ([value isKindOfClass:[NSURL class]]) {
+            NSDictionary *attributes = self.stylesMap[@"a"];
+            [self addLinkToURL:value range:range attributes:attributes];
+            NSLog(@"value: %@", value);
+            NSLog(@"range: %ld: %ld", range.location, range.length);
+        }
+    }];
     
     return theAttrString;
 }

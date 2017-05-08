@@ -10,4 +10,18 @@
 
 @implementation RHNodeLink
 
+- (instancetype)initWithAttributes:(NSDictionary *)attributes
+                  activeAttributes:(NSDictionary *)activeAttributes
+                inactiveAttributes:(NSDictionary *)inactiveAttributes
+                textCheckingResult:(NSTextCheckingResult *)result
+{
+    if (self = [super init]) {
+        _result = result;
+        _attributes = attributes;
+        _activeAttributes = activeAttributes;
+        _inactiveAttributes = inactiveAttributes;
+    }
+    return self;
+}
+
 @end

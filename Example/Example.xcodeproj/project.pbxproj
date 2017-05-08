@@ -26,6 +26,7 @@
 		839AE92B1EAF3EF80097CC85 /* item_72_s_122010.png in Resources */ = {isa = PBXBuildFile; fileRef = 839AE9261EAF3EF80097CC85 /* item_72_s_122010.png */; };
 		839AE92C1EAF3EF80097CC85 /* UILabel+RHExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 839AE9281EAF3EF80097CC85 /* UILabel+RHExtensions.m */; };
 		839AE92F1EAF564E0097CC85 /* RHHtmlNodeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 839AE92E1EAF564E0097CC85 /* RHHtmlNodeFilter.m */; };
+		83C2DE551EBA273A00EEAD32 /* RHNodeLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C2DE541EBA273A00EEAD32 /* RHNodeLink.m */; };
 		83D8E4251EAFA5A200A0F7A5 /* XmlTest.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83D8E4241EAFA5A200A0F7A5 /* XmlTest.xml */; };
 		83D8E4281EAFACB200A0F7A5 /* RHXmlNodeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D8E4271EAFACB200A0F7A5 /* RHXmlNodeFilter.m */; };
 /* End PBXBuildFile section */
@@ -63,6 +64,8 @@
 		839AE9281EAF3EF80097CC85 /* UILabel+RHExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+RHExtensions.m"; sourceTree = "<group>"; };
 		839AE92D1EAF564E0097CC85 /* RHHtmlNodeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHtmlNodeFilter.h; sourceTree = "<group>"; };
 		839AE92E1EAF564E0097CC85 /* RHHtmlNodeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHHtmlNodeFilter.m; sourceTree = "<group>"; };
+		83C2DE531EBA273A00EEAD32 /* RHNodeLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHNodeLink.h; sourceTree = "<group>"; };
+		83C2DE541EBA273A00EEAD32 /* RHNodeLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHNodeLink.m; sourceTree = "<group>"; };
 		83D8E4241EAFA5A200A0F7A5 /* XmlTest.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = XmlTest.xml; sourceTree = "<group>"; };
 		83D8E4261EAFACB200A0F7A5 /* RHXmlNodeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHXmlNodeFilter.h; sourceTree = "<group>"; };
 		83D8E4271EAFACB200A0F7A5 /* RHXmlNodeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHXmlNodeFilter.m; sourceTree = "<group>"; };
@@ -142,6 +145,8 @@
 				839AE9131EAF38F30097CC85 /* RHParser.m */,
 				839AE9141EAF38F30097CC85 /* Utils */,
 				839AE9171EAF38F30097CC85 /* XmlParser */,
+				83C2DE531EBA273A00EEAD32 /* RHNodeLink.h */,
+				83C2DE541EBA273A00EEAD32 /* RHNodeLink.m */,
 			);
 			name = RHParser;
 			path = ../RHParser;
@@ -265,6 +270,7 @@
 				839AE92F1EAF564E0097CC85 /* RHHtmlNodeFilter.m in Sources */,
 				839AE9201EAF38F30097CC85 /* RHXmlParser.m in Sources */,
 				839AE8D71EAEFB2A0097CC85 /* ViewController.m in Sources */,
+				83C2DE551EBA273A00EEAD32 /* RHNodeLink.m in Sources */,
 				839AE91A1EAF38F30097CC85 /* RHHtmlParser.m in Sources */,
 				839AE91F1EAF38F30097CC85 /* RHColorConverter.m in Sources */,
 				839AE91D1EAF38F30097CC85 /* RHNodeList.m in Sources */,
