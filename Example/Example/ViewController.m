@@ -46,7 +46,6 @@
     _htmlLabel.attributedText = attributedString;
 //    [_htmlLabel setHtmlText:htmlString];
     [self.view addSubview:_htmlLabel];
-    _htmlLabel.userInteractionEnabled = YES;
     
     //
     NSString *xmlPath = [[NSBundle mainBundle] pathForResource:@"XmlTest" ofType:@"xml"];
@@ -56,13 +55,12 @@
     attributedString = [xmlParser parseString:xmlString filter:nil];
     
     _xmlLabel = [[UILabel alloc] init];
-    _xmlLabel.frame = CGRectMake(0, CGRectGetMaxY(_htmlLabel.frame), CGRectGetWidth(self.view.frame), 200);
+    _xmlLabel.frame = CGRectMake(0, CGRectGetMaxY(_htmlLabel.frame), CGRectGetWidth(self.view.frame), 160);
     _xmlLabel.font = [UIFont systemFontOfSize:12];
     _xmlLabel.textColor = [UIColor grayColor];
     _xmlLabel.numberOfLines = 0;
     _xmlLabel.attributedText = attributedString;
     [self.view addSubview:_xmlLabel];
-    _xmlLabel.userInteractionEnabled = YES;
 }
 
 

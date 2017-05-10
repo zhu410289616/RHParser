@@ -15,6 +15,4 @@
  */
 @interface RHHtmlParser : RHParser
 
-@property (nonatomic, strong, readonly) NSArray *nodeLinks;
-
 @end
