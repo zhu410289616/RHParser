@@ -28,6 +28,7 @@
 		839AE92F1EAF564E0097CC85 /* RHHtmlNodeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 839AE92E1EAF564E0097CC85 /* RHHtmlNodeFilter.m */; };
 		83D8E4251EAFA5A200A0F7A5 /* XmlTest.xml in Resources */ = {isa = PBXBuildFile; fileRef = 83D8E4241EAFA5A200A0F7A5 /* XmlTest.xml */; };
 		83D8E4281EAFACB200A0F7A5 /* RHXmlNodeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D8E4271EAFACB200A0F7A5 /* RHXmlNodeFilter.m */; };
+		83D8E7D41EC344280092EB62 /* ShowRichTextController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D8E7D31EC344280092EB62 /* ShowRichTextController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,8 @@
 		83D8E4241EAFA5A200A0F7A5 /* XmlTest.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = XmlTest.xml; sourceTree = "<group>"; };
 		83D8E4261EAFACB200A0F7A5 /* RHXmlNodeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHXmlNodeFilter.h; sourceTree = "<group>"; };
 		83D8E4271EAFACB200A0F7A5 /* RHXmlNodeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHXmlNodeFilter.m; sourceTree = "<group>"; };
+		83D8E7D21EC344280092EB62 /* ShowRichTextController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowRichTextController.h; sourceTree = "<group>"; };
+		83D8E7D31EC344280092EB62 /* ShowRichTextController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowRichTextController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +119,8 @@
 				839AE8E01EAEFB2A0097CC85 /* Info.plist */,
 				839AE8CF1EAEFB2A0097CC85 /* Supporting Files */,
 				83D8E4241EAFA5A200A0F7A5 /* XmlTest.xml */,
+				83D8E7D21EC344280092EB62 /* ShowRichTextController.h */,
+				83D8E7D31EC344280092EB62 /* ShowRichTextController.m */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 				839AE92F1EAF564E0097CC85 /* RHHtmlNodeFilter.m in Sources */,
 				839AE9201EAF38F30097CC85 /* RHXmlParser.m in Sources */,
 				839AE8D71EAEFB2A0097CC85 /* ViewController.m in Sources */,
+				83D8E7D41EC344280092EB62 /* ShowRichTextController.m in Sources */,
 				839AE91A1EAF38F30097CC85 /* RHHtmlParser.m in Sources */,
 				839AE91F1EAF38F30097CC85 /* RHColorConverter.m in Sources */,
 				839AE91D1EAF38F30097CC85 /* RHNodeList.m in Sources */,
