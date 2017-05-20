@@ -30,4 +30,8 @@ html、xml等标记语言解析。可以方便的转换为NSAttributedString。
 	NSAttributedString *attributedString = [htmlParser parseString:htmlString filter:nil];
 
 
+![0](resources/0.png "0")
+![1](resources/1.png "1")
+![2](resources/2.png "2")
+
 
