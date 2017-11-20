@@ -248,7 +248,9 @@
         return nil;
     }
     
-    NSData *theData = [inString dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *theStr = [inString stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\n"];
+    theStr = [inString stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
+    NSData *theData = [theStr dataUsingEncoding:NSUTF8StringEncoding];
     xmlNodePtr rootXmlNode = [self _rootNodeWithData:theData];
     RHNodeList *theNodeList = [[RHNodeList alloc] init];
     [self _readWithNode:rootXmlNode filter:inFilter nodeList:theNodeList];
