@@ -15,6 +15,12 @@
 
 @implementation RHHtmlParser
 
++ (NSAttributedString *)parseString:(NSString *)inString
+{
+    RHHtmlParser *parser = [[RHHtmlParser alloc] init];
+    return [parser parseString:inString filter:nil];
+}
+
 - (instancetype)init
 {
     if (self = [super init]) {

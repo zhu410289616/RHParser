@@ -22,6 +22,12 @@
 
 @implementation RHXmlParser
 
++ (NSAttributedString *)parseString:(NSString *)inString
+{
+    RHXmlParser *parser = [[RHXmlParser alloc] init];
+    return [parser parseString:inString filter:nil];
+}
+
 - (instancetype)init
 {
     if (self = [super init]) {
